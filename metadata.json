@@ -1,0 +1,7 @@
+{
+  "name": "ID.Forge - AI Identity Architect",
+  "description": "A multi-agent AI system for generating AAMVA-compliant government ID headshots and digital disguises using Gemini 2.5 Flash.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
