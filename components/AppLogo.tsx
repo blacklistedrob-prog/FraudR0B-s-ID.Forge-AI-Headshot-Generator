@@ -13,15 +13,48 @@ const AppLogo = ({ className = "w-10 h-10" }: { className?: string }) => {
           <feGaussianBlur stdDeviation="2" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
+        <clipPath id="body-mask">
+            <rect x="30" y="40" width="40" height="40" />
+        </clipPath>
       </defs>
       
-      {/* Base/Anvil Structure - Wireframe Style */}
+      <style>
+        {`
+          @keyframes matrix-rain {
+            0% { transform: translateY(-20px); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(50px); opacity: 0; }
+          }
+          .rain-drop {
+            animation: matrix-rain linear infinite;
+          }
+        `}
+      </style>
+
+      {/* Base/Anvil Structure */}
       <path 
         d="M20 80 L80 80 L90 90 H10 L20 80Z" 
         stroke="#22d3ee" 
         strokeWidth="2" 
         fill="rgba(34, 211, 238, 0.1)"
       />
+      
+      {/* Animated Matrix Rain in Body */}
+      <g clipPath="url(#body-mask)">
+         {/* Primary Green Drops */}
+         <rect x="35" y="40" width="2" height="10" fill="#22c55e" className="rain-drop" style={{ animationDuration: '1.5s', animationDelay: '0s' }} opacity="0.6" />
+         <rect x="55" y="35" width="2" height="12" fill="#22c55e" className="rain-drop" style={{ animationDuration: '1.8s', animationDelay: '0.2s' }} opacity="0.6" />
+         
+         {/* Secondary Cyan Drops */}
+         <rect x="45" y="30" width="2" height="8" fill="#22d3ee" className="rain-drop" style={{ animationDuration: '2.1s', animationDelay: '0.5s' }} opacity="0.5" />
+         <rect x="65" y="45" width="2" height="7" fill="#22d3ee" className="rain-drop" style={{ animationDuration: '1.2s', animationDelay: '0.8s' }} opacity="0.5" />
+         
+         {/* Fine Particles */}
+         <rect x="40" y="35" width="1" height="5" fill="#22c55e" className="rain-drop" style={{ animationDuration: '2.5s', animationDelay: '1.2s' }} opacity="0.4" />
+         <rect x="60" y="30" width="1" height="6" fill="#22d3ee" className="rain-drop" style={{ animationDuration: '2.3s', animationDelay: '0.9s' }} opacity="0.4" />
+      </g>
+
       <path 
         d="M30 80 L30 50 Q30 40 20 40 H15 V30 H85 V40 H80 Q70 40 70 50 L70 80" 
         stroke="#22d3ee" 
@@ -36,9 +69,6 @@ const AppLogo = ({ className = "w-10 h-10" }: { className?: string }) => {
       <path d="M65 25 L60 25" stroke="#22c55e" strokeWidth="2" />
       <path d="M50 40 L50 35" stroke="#22c55e" strokeWidth="2" />
       <path d="M35 25 L40 25" stroke="#22c55e" strokeWidth="2" />
-      
-      {/* Matrix Rain / Forge Sparks */}
-      <path d="M25 60 L25 65 M35 55 L35 62 M45 58 L45 64" stroke="#22d3ee" strokeWidth="1" opacity="0.5" />
       
       {/* Initials F R */}
       <text 

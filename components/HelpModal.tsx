@@ -28,9 +28,9 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
         <div className="h-12 bg-black border-b border-zinc-800 flex items-center justify-between px-6 select-none shrink-0">
           <div className="flex items-center gap-2 text-cyan-500 font-mono font-bold text-xs md:text-sm">
             <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
-            ID.FORGE MANUAL <span className="hidden md:inline">// v4.1.0</span>
+            ID.FORGE USER GUIDE <span className="hidden md:inline">// v4.1.0</span>
           </div>
-          <button onClick={onClose} className="text-zinc-500 hover:text-red-500 font-mono text-xs">[CLOSE]</button>
+          <button onClick={onClose} className="text-zinc-500 hover:text-red-500 font-mono text-xs uppercase">[Close]</button>
         </div>
 
         {/* Content Layout */}
@@ -38,12 +38,12 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
           
           {/* Sidebar (Tabs) */}
           <div className="w-full md:w-64 bg-black border-b md:border-b-0 md:border-r border-zinc-800 flex flex-row md:flex-col overflow-x-auto md:overflow-y-auto shrink-0">
-            <div className="hidden md:block px-4 py-4 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Database</div>
-            <TabButton id="manual" label="SYSTEM PROTOCOLS" />
-            <TabButton id="walkthrough" label="WALKTHROUGHS" />
-            <TabButton id="faq" label="F.A.Q." />
+            <div className="hidden md:block px-4 py-4 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Library</div>
+            <TabButton id="manual" label="CHOOSE YOUR STYLE" />
+            <TabButton id="walkthrough" label="STEP-BY-STEP" />
+            <TabButton id="faq" label="COMMON QUESTIONS" />
             <TabButton id="tips" label="PRO TIPS" />
-            <TabButton id="contact" label="CONTACT" />
+            <TabButton id="contact" label="SUPPORT" />
           </div>
 
           {/* Main Content Area */}
@@ -52,68 +52,60 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
             {activeTab === 'manual' && (
               <div className="space-y-8 max-w-3xl">
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-cyan-400 mb-2">System Overview</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-cyan-400 mb-2">Introduction</h2>
                   <p className="text-xs md:text-sm text-zinc-400 leading-relaxed">
-                    ID.Forge is a multi-agent AI system designed to generate AAMVA-compliant government ID headshots. It utilizes advanced computer vision and generative diffusion models to reconstruct input data into standardized biometric formats.
+                    ID.Forge uses advanced AI to help you create and refine professional headshots. Whether you're fixing a photo for an ID or creating a new digital identity, our system handles the lighting, background, and cropping automatically.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6">
                   <div className="border border-zinc-800 p-4 bg-zinc-900/30 rounded">
-                    <h3 className="text-cyan-300 font-bold mb-2">Protocol: STANDARD</h3>
+                    <h3 className="text-cyan-300 font-bold mb-2 uppercase">Standard Driver's License / Passport Headshot</h3>
                     <p className="text-xs text-zinc-400">
-                      **Function:** Image-to-Image Refinement.<br/>
-                      **Use Case:** Converting a user's existing photo into a compliant ID.<br/>
-                      **Behavior:** Strict fidelity to the subject's identity. Fixes lighting, background (Studio Blue), posture, and expression without altering facial structure.
+                      **Goal:** Fix a photo you already have.<br/>
+                      **How it works:** It takes your existing face and cleans up the lighting, background (to Studio Blue), and centers it perfectly according to passport standards.
                     </p>
                   </div>
 
                   <div className="border border-zinc-800 p-4 bg-zinc-900/30 rounded">
-                    <h3 className="text-purple-300 font-bold mb-2">Protocol: DISGUISE</h3>
+                    <h3 className="text-purple-300 font-bold mb-2">Privacy Alteration</h3>
                     <p className="text-xs text-zinc-400">
-                      **Function:** Identity Obfuscation.<br/>
-                      **Use Case:** Privacy protection and facial recognition evasion.<br/>
-                      **Behavior:** Maintains basic facial landmarks for plausibility but alters key features (hair, weight, age) to create a "digital cousin" of the subject.
+                      **Goal:** Protect your identity online.<br/>
+                      **How it works:** It creates a "lookalike" of your face. It keeps your general features so it's recognizable but changes enough details to evade some facial recognition scanners.
                     </p>
                   </div>
 
                   <div className="border border-zinc-800 p-4 bg-zinc-900/30 rounded">
-                    <h3 className="text-amber-300 font-bold mb-2">Protocol: SYNTHETIC</h3>
+                    <h3 className="text-amber-300 font-bold mb-2 uppercase">Create Synthetic Headshot</h3>
                     <p className="text-xs text-zinc-400">
-                      **Function:** Text-to-Image Fabrication.<br/>
-                      **Use Case:** Creating entirely fake personas ("Ghosts").<br/>
-                      **Behavior:** Generates a photorealistic human from a text description seed. Requires no image input.
+                      **Goal:** Generate a completely new identity from scratch.<br/>
+                      **How it works:** Just type in a description (like "Man, 30s, short hair") and the system will build a realistic person that doesn't exist in real life.
                     </p>
                   </div>
                 </div>
                 
                 <div className="border-t border-zinc-800 pt-6">
-                    <h3 className="text-lg font-bold text-white mb-4">Texture & Materiality Engine</h3>
+                    <h3 className="text-lg font-bold text-white mb-4">Skin Detail Settings</h3>
                     <p className="text-xs text-zinc-400 mb-4">
-                        The new v4.1.0 update introduces granular control over skin generation.
+                        You can control how realistic the skin looks in the generated photo.
                     </p>
-                    <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <li className="bg-black border border-zinc-800 p-3 rounded">
-                            <strong className="text-cyan-400 block mb-1">SMOOTHED</strong>
-                            <span className="text-[10px] text-zinc-500">Commercial retouching style. Flattering, reduces acne/wrinkles. Best for social profiles.</span>
-                        </li>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <li className="bg-black border border-zinc-800 p-3 rounded">
                             <strong className="text-cyan-400 block mb-1">NATURAL</strong>
-                            <span className="text-[10px] text-zinc-500">Standard photography. Balanced sharpness. The default "Camera" look.</span>
+                            <span className="text-[10px] text-zinc-500">Standard clean look. Balanced skin texture like a normal high-quality camera photo.</span>
                         </li>
                         <li className="bg-black border border-zinc-800 p-3 rounded">
-                            <strong className="text-cyan-400 block mb-1">RAW / HIGH</strong>
-                            <span className="text-[10px] text-zinc-500">Forensic grade. Max texture, pores, vellus hair, and imperfections. Essential for passing AI detection.</span>
+                            <strong className="text-cyan-400 block mb-1">ENHANCED</strong>
+                            <span className="text-[10px] text-zinc-500">Extreme realism. Renders pores, fine lines, and tiny hairs. Best for high-security scans.</span>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                   <h3 className="text-lg md:text-xl font-bold text-white mb-4">Forensic Capabilities</h3>
+                   <h3 className="text-lg md:text-xl font-bold text-white mb-4">Quality & Scanning</h3>
                    <ul className="list-disc pl-5 space-y-2 text-xs text-zinc-400">
-                      <li><strong className="text-cyan-400">Spectral Scan:</strong> Analyzes Frequency Domain (FFT) to find "Spectral Smoothness" (waxy skin typical of AI).</li>
-                      <li><strong className="text-cyan-400">Diffusion Grid Detection:</strong> Hunts for checkerboard artifacts left by upscalers.</li>
-                      <li><strong className="text-cyan-400">Counter-Measures:</strong> Injects stochastic Poisson noise and dithering to mimic a raw camera sensor (Sony A7R profile).</li>
+                      <li><strong className="text-cyan-400">High Quality (600 DPI):</strong> Recommended for printing on high-end plastic ID cards.</li>
+                      <li><strong className="text-cyan-400">Forensic Check:</strong> The system automatically scans the generated images to see if they look "too fake" and can help you fix them.</li>
                    </ul>
                 </div>
               </div>
@@ -123,53 +115,39 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
                <div className="space-y-12 max-w-3xl">
                  {/* Walkthrough 1 */}
                  <div className="border-l-2 border-cyan-600 pl-6">
-                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Op 1: The "Passport-Ready" Upload</h3>
-                   <p className="text-xs text-zinc-500 mb-4">Objective: Convert a casual gallery photo into a compliant US Passport photo.</p>
+                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Fixing an existing photo</h3>
+                   <p className="text-xs text-zinc-500 mb-4">Use this to turn a selfie into a professional ID headshot.</p>
                    <ol className="list-decimal pl-4 space-y-3 text-xs md:text-sm text-zinc-300">
-                     <li>Set <strong>Protocol</strong> to <span className="text-cyan-400">STANDARD</span>.</li>
-                     <li>Click the <strong>UPLOAD</strong> box or drag-and-drop a photo.</li>
-                     <li>Set <strong>Output DPI</strong> to <strong>600 (High)</strong> for printing.</li>
-                     <li>Set <strong>Texture</strong> to <span className="text-cyan-400">RAW/HIGH</span> to ensure realistic skin details (critical for passports).</li>
-                     <li>Click <strong>GENERATE HEADSHOTS</strong>. The system will generate 4 variations.</li>
-                     <li>Select your favorite. If needed, click <strong>SPECTRAL SCAN</strong> then <strong>APPLY COUNTER-MEASURES</strong>.</li>
-                     <li>Click <strong>PDF</strong> export. Prints perfectly at 2x2 inches.</li>
+                     <li>Pick <span className="text-cyan-400 font-bold uppercase">Standard Driver's License / Passport Headshot</span> from the list.</li>
+                     <li>Click <strong>Upload File</strong> or drag your photo onto the box.</li>
+                     <li>Set <strong>Quality</strong> to 600 DPI.</li>
+                     <li>Set <strong>Skin Detail</strong> to <span className="text-cyan-400">Natural</span>.</li>
+                     <li>Click <strong>Generate Headshots</strong>.</li>
+                     <li>Pick your favorite from the results and click <strong>Save Image</strong>.</li>
                    </ol>
                  </div>
 
                  {/* Walkthrough 2 */}
                  <div className="border-l-2 border-cyan-600 pl-6">
-                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Op 2: The Secure Selfie Capture</h3>
-                   <p className="text-xs text-zinc-500 mb-4">Objective: Use the device camera to take a perfectly aligned source image.</p>
+                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Taking a live photo</h3>
+                   <p className="text-xs text-zinc-500 mb-4">Use your webcam or phone camera to get a perfect shot.</p>
                    <ol className="list-decimal pl-4 space-y-3 text-xs md:text-sm text-zinc-300">
-                     <li>Click <strong>CAM FEED</strong>. The interface will overlay a biometric HUD.</li>
-                     <li>Align your face within the <strong>dashed oval</strong>. Match eyes to the <strong>EYE LINE</strong>.</li>
-                     <li>Click <strong>CAPTURE FRAME</strong>.</li>
-                     <li>Follow generation steps. Use <span className="text-cyan-400">NATURAL</span> texture if lighting is poor.</li>
+                     <li>Click <strong>Use Camera</strong>.</li>
+                     <li>Line up your face inside the guides on the screen.</li>
+                     <li>Click the shutter button to <strong>Capture Photo</strong>.</li>
+                     <li>Confirm the photo is good, then click <strong>Generate Headshots</strong>.</li>
                    </ol>
                  </div>
 
                  {/* Walkthrough 3 */}
                  <div className="border-l-2 border-purple-500 pl-6">
-                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Op 3: The "Doppelgänger" Disguise</h3>
-                   <p className="text-xs text-zinc-500 mb-4">Objective: Create an ID photo that looks like you, but isn't you.</p>
+                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Creating a "Ghost" Identity</h3>
+                   <p className="text-xs text-zinc-500 mb-4">Create a high-quality person that doesn't exist.</p>
                    <ol className="list-decimal pl-4 space-y-3 text-xs md:text-sm text-zinc-300">
-                     <li>Set <strong>Protocol</strong> to <span className="text-purple-400">DISGUISE</span>.</li>
-                     <li>Upload a clear photo of your target.</li>
-                     <li>Use <span className="text-cyan-400">SMOOTHED</span> texture to slightly blur distinctive scars/marks.</li>
-                     <li>Click <strong>GENERATE</strong>.</li>
-                     <li>Review results. Variations 3/4 have heavier alterations.</li>
-                   </ol>
-                 </div>
-
-                 {/* Walkthrough 4 */}
-                 <div className="border-l-2 border-amber-500 pl-6">
-                   <h3 className="text-lg md:text-xl font-bold text-white mb-2">Op 4: The Synthetic Ghost</h3>
-                   <p className="text-xs text-zinc-500 mb-4">Objective: Create a completely fake person.</p>
-                   <ol className="list-decimal pl-4 space-y-3 text-xs md:text-sm text-zinc-300">
-                     <li>Set <strong>Protocol</strong> to <span className="text-amber-400">SYNTHETIC</span>. (Requires API Key).</li>
-                     <li>Enter Description: <em>"Female, 20s, glasses, freckles."</em></li>
-                     <li>Set <strong>Resolution</strong> to <strong>2K</strong>. Texture to <strong>RAW</strong>.</li>
-                     <li>Click <strong>GENERATE</strong>.</li>
+                     <li>Pick <span className="text-purple-400 font-bold uppercase">Create Synthetic Headshot</span>.</li>
+                     <li>In the text box, describe the person (e.g., "Middle aged man with short hair").</li>
+                     <li>Set <strong>Skin Detail</strong> to <span className="text-cyan-400">Enhanced</span> for maximum realism.</li>
+                     <li>Click <strong>Generate Headshots</strong>.</li>
                    </ol>
                  </div>
                </div>
@@ -178,13 +156,10 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
             {activeTab === 'faq' && (
               <div className="space-y-6 max-w-3xl">
                 {[
-                  { q: "What does the 'Texture Detail' setting do?", a: "It controls the micro-surface generation of the skin. 'Smoothed' removes blemishes (like a beauty filter). 'Natural' is standard photography. 'Raw/High' forces the AI to render individual pores, vellus hair, and irregularities to defeat deepfake detection scanners." },
-                  { q: "Is this tool legal to use?", a: "ID.Forge is an educational tool for testing biometric compliance. Forging government documents for fraud is a federal offense. Use responsibly." },
-                  { q: "Why is the default DPI now 600?", a: "We updated the default to 600 DPI (2K resolution) to ensure all generated IDs meet the strict printing standards of modern PVC card printers." },
-                  { q: "Why do I need an API Key for Synthetic mode?", a: "Synthetic generation and 4K outputs use the 'Gemini 3 Pro' model, which incurs higher computational costs." },
-                  { q: "What is 'Spectral Smoothness'?", a: "AI generators tend to predict the 'average' value of a pixel cluster, removing the random high-frequency noise found in real camera sensors. This creates a 'waxy' look." },
-                  { q: "Can I print these directly?", a: "Yes. Export as PDF or PNG. The output is pre-cropped to 1:1." },
-                  { q: "Who is FraudR0B?", a: "A sentient AI construct specializing in security research. Or just a cool dev. You decide." }
+                  { q: "What is Skin Detail?", a: "It's how the AI handles skin. 'Natural' is for everyday use. 'Enhanced' adds micro-textures like pores and fine hairs to make the photo pass advanced biometric security checks." },
+                  { q: "Why 600 DPI?", a: "Professional card printers usually print at 300 or 600 DPI. Using 600 ensures your photo looks sharp and clear when printed on plastic." },
+                  { q: "Can I use this for official documents?", a: "This tool is for testing and personal use. While the photos meet standards, you should always check your local laws before using AI-generated photos for government documents." },
+                  { q: "What does 'Save Image' do?", a: "It downloads the result as a PNG file to your device. 'Print PDF' gives you a document ready for physical printing at the correct size." }
                 ].map((item, i) => (
                   <div key={i} className="bg-zinc-900/40 p-4 rounded border border-zinc-800">
                     <div className="text-cyan-400 font-bold text-sm mb-2">Q: {item.q}</div>
@@ -196,29 +171,17 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
 
             {activeTab === 'tips' && (
               <div className="max-w-3xl">
-                <h3 className="text-lg md:text-xl font-bold text-white mb-6">20 Pro Tips & Tricks</h3>
+                <h3 className="text-lg md:text-xl font-bold text-white mb-6">Expert Tips</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {[
-                    "Use RAW/HIGH texture for any image intended for printing.",
-                    "Use SMOOTHED texture if you want to look younger/better.",
-                    "Input photos with even lighting yield the best results.",
-                    "Avoid hair covering the eyebrows in source photos.",
-                    "Glasses are usually removed by the AI for compliance.",
-                    "To keep glasses, specify 'wearing reading glasses' in Edit mode.",
-                    "Use 'Synthetic' mode to generate diverse test data.",
-                    "Always run 'Spectral Scan' before final export.",
-                    "If AI Probability > 50%, always apply Counter-Measures.",
-                    "Use 'Edit' to change clothing colors (e.g., 'Change suit to black').",
-                    "Export to PDF for exact physical print sizing.",
-                    "DPI of 600 is recommended for Dye-Sub printers.",
-                    "The 'Save Config' button persists your DPI/Mode settings.",
-                    "Double-click the camera overlay to reset focus (if supported).",
-                    "Use the 'Rule of Thirds' grid to align eyes to the top line.",
-                    "Don't smile too wide; 'Neutral Expression' is stricter than you think.",
-                    "Synthetic prompts work best with age/gender/ethnicity details.",
-                    "Counter-Measures add 'grain'; this is intentional.",
-                    "Reload the page to clear the memory buffer instantly.",
-                    "Use 'Disguise' mode to create privacy-safe avatars."
+                    "Use Enhanced Detail if you plan to print the photo.",
+                    "Even lighting on your face gives the best results.",
+                    "Try to keep a neutral expression (no big smiles).",
+                    "If you wear glasses, the system will often try to remove them for ID compliance.",
+                    "Use the 'Photo History' to quickly switch between your recent creations.",
+                    "On mobile, use the vertical guides to center your eyes.",
+                    "You can print the PDF directly at home; it's pre-sized for ID cards.",
+                    "Try different descriptions in 'Create Synthetic Headshot' for varied results."
                   ].map((tip, i) => (
                     <div key={i} className="flex gap-2 items-start text-xs text-zinc-400">
                       <span className="text-cyan-600 font-bold">{i+1}.</span>
@@ -236,11 +199,11 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
                 </div>
                 <div className="text-center">
                   <h2 className="text-2xl md:text-3xl font-bold text-white tracking-widest">FraudR0B</h2>
-                  <p className="text-cyan-500 font-mono text-sm mt-1">Skynet-Level AI Assistance // Identity Architect</p>
+                  <p className="text-cyan-500 font-mono text-sm mt-1">AI Identity Architect</p>
                 </div>
                 <div className="bg-zinc-900 p-6 rounded border border-zinc-800 text-center space-y-4 max-w-md">
                   <p className="text-sm text-zinc-400">
-                    "I build tools for the ones who need to vanish. Or just the ones who need a passport photo and don't want to go to CVS."
+                    "I build high-end tools to make identity fabrication accessible and professional."
                   </p>
                   <div className="pt-4 border-t border-zinc-800">
                     <p className="text-xs text-zinc-500 uppercase tracking-widest mb-1">Secure Comms</p>
