@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ASPECT_RATIOS, RESOLUTIONS } from './constants';
 import ProcessingTerminal from './components/ProcessingTerminal';
+import ForensicLoadingHUD from './components/ForensicLoadingHUD';
 import HelpModal from './components/HelpModal';
 import MemoryModal from './components/MemoryModal';
 import AppLogo from './components/AppLogo';
@@ -10,7 +11,7 @@ import { initFaceMesh, stopFaceMesh, opencvSmartCrop } from './services/visionSe
 import { classifyImageLocal } from './services/localAIService';
 import { storeOperation } from './services/memoryService';
 import { AgentMode, AspectRatio, ImageResolution, ForensicScanResult, TextureLevel } from './types';
-import { jsPDF } from "jsPDF";
+import { jsPDF } from "jspdf";
 
 // Refined Icons
 const UploadIcon = () => (
@@ -319,15 +320,24 @@ const App = () => {
             <div className="flex-1 relative overflow-hidden flex items-center justify-center p-4 md:p-6 lg:p-8">
                 
                 {/* Visualizer Content */}
-                {(generatedImages.length > 0 || sourceImage) ? (
+                {(generatedImages.length > 0 || sourceImage || status === 'processing') ? (
                     <div className="w-full h-full flex flex-col relative z-10 animate-in fade-in zoom-in duration-500 max-w-5xl mx-auto">
                         <div className="flex-1 flex items-center justify-center relative">
                             {/* The "Viewport" */}
                             <div className="relative group tactile-inset rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-neutral-900 max-w-full max-h-full">
-                                {generatedImages.length > 0 ? (
-                                    <img src={generatedImages[selectedImageIndex]} className="max-h-[35vh] md:max-h-[45vh] lg:max-h-[55vh] w-auto block object-contain" alt="Synthetic Result" />
+                                {status === 'processing' ? (
+                                    <div className="relative h-[35vh] md:h-[45vh] lg:h-[55vh] w-[35vh] md:w-[45vh] lg:w-[55vh]">
+                                        {sourceImage && (
+                                           <img src={sourceImage} className="absolute inset-0 w-full h-full object-cover grayscale opacity-20 blur-sm" alt="Processing Reference" />
+                                        )}
+                                        <ForensicLoadingHUD />
+                                    </div>
                                 ) : (
-                                    sourceImage && <img src={sourceImage} className="max-h-[35vh] md:max-h-[45vh] lg:max-h-[55vh] w-auto block opacity-50 grayscale" alt="Input Reference" />
+                                    generatedImages.length > 0 ? (
+                                        <img src={generatedImages[selectedImageIndex]} className="max-h-[35vh] md:max-h-[45vh] lg:max-h-[55vh] w-auto block object-contain" alt="Synthetic Result" />
+                                    ) : (
+                                        sourceImage && <img src={sourceImage} className="max-h-[35vh] md:max-h-[45vh] lg:max-h-[55vh] w-auto block opacity-50 grayscale" alt="Input Reference" />
+                                    )
                                 )}
                                 
                                 {/* Overlay HUD Elements */}
@@ -344,7 +354,7 @@ const App = () => {
                         </div>
 
                         {/* Integrated Controls Bar */}
-                        <div className="mt-4 md:mt-6 bg-black/60 backdrop-blur-3xl rounded-[2rem] p-2 md:p-3 flex flex-col sm:flex-row gap-3 items-center shadow-2xl border border-white/5 w-full">
+                        <div className={`mt-4 md:mt-6 bg-black/60 backdrop-blur-3xl rounded-[2rem] p-2 md:p-3 flex flex-col sm:flex-row gap-3 items-center shadow-2xl border border-white/5 w-full ${status === 'processing' ? 'opacity-30 pointer-events-none' : ''}`}>
                             {generatedImages.length > 0 && (
                                 <div className="flex gap-2 p-1.5 bg-black/40 rounded-2xl border border-white/5 overflow-x-auto no-scrollbar max-w-[200px] shrink-0">
                                     {generatedImages.map((img, idx) => (
@@ -400,8 +410,8 @@ const App = () => {
                                      <CameraIcon />
                                  </div>
                                  <div className="text-center">
-                                     <h4 className="text-[8px] md:text-[10px] font-black uppercase text-white tracking-widest mb-0.5">Live Viewfinder</h4>
-                                     <p className="text-[6px] md:text-[7px] text-neutral-500 font-mono">Stream biometric markers from device camera</p>
+                                     <h4 className="text-[8px] md:text-[10px] font-black uppercase text-white tracking-widest mb-0.5">Take Photo Now</h4>
+                                     <p className="text-[6px] md:text-[7px] text-neutral-500 font-mono">Activate your device's camera and follow the instructions to take the perfect selfie to convert into the ultimate headshot instantly.</p>
                                  </div>
                                  <button 
                                      onClick={sourceImage ? handleGenerate : startCamera} 
@@ -417,8 +427,8 @@ const App = () => {
                                      <UploadIcon />
                                  </div>
                                  <div className="text-center">
-                                     <h4 className="text-[8px] md:text-[10px] font-black uppercase text-white tracking-widest mb-0.5">Local Master</h4>
-                                     <p className="text-[6px] md:text-[7px] text-neutral-500 font-mono">Select high-resolution biometric reference file</p>
+                                     <h4 className="text-[8px] md:text-[10px] font-black uppercase text-white tracking-widest mb-0.5">Upload Photo</h4>
+                                     <p className="text-[6px] md:text-[7px] text-neutral-500 font-mono">Quickly convert any selfie into a high-quality professional DMV ready headshot</p>
                                  </div>
                                  <button 
                                      onClick={sourceImage ? handleGenerate : () => fileInputRef.current?.click()} 
@@ -475,18 +485,17 @@ const App = () => {
         {/* System Log Footer */}
         <footer className="h-28 bg-black/60 border-t border-white/5 px-6 py-3 font-mono text-[9px] backdrop-blur-3xl relative shrink-0 z-30">
           <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
-          <div className="flex items-center gap-3 mb-2 opacity-30 select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
-            <span className="uppercase font-black tracking-widest text-[8px]">Real-time Telemetry Feed</span>
+          <div className="flex flex-col h-full">
+              <div className="flex items-center justify-between mb-2">
+                  <span className="text-cyan-500/60 uppercase tracking-widest font-black text-[8px]">Neural Process Monitor // Stream.Active</span>
+                  <div className="flex gap-4">
+                      <span className="text-neutral-600">Buffer: 4.0Gbps</span>
+                      <span className="text-neutral-600">Model: Gemini 2.5 Flash</span>
+                  </div>
+              </div>
+              <ProcessingTerminal logs={logs} />
           </div>
-          <ProcessingTerminal logs={logs} />
         </footer>
-      </div>
-
-      {/* Decorative Atmosphere */}
-      <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[50%] h-[50%] bg-cyan-900/10 rounded-full blur-[150px] animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
     </div>
   );

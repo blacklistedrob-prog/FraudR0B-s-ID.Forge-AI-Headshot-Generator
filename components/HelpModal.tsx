@@ -5,7 +5,7 @@ interface HelpModalProps {
 }
 
 const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
-  const [activeTab, setActiveTab] = useState<'manual' | 'walkthrough' | 'faq' | 'tips' | 'contact'>('manual');
+  const [activeTab, setActiveTab] = useState<'manual' | 'walkthrough' | 'advanced' | 'faq' | 'tips' | 'contact'>('manual');
 
   const TabButton = ({ id, label }: { id: typeof activeTab, label: string }) => (
     <button 
@@ -28,7 +28,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
         <div className="h-12 bg-black border-b border-zinc-800 flex items-center justify-between px-6 select-none shrink-0">
           <div className="flex items-center gap-2 text-cyan-500 font-mono font-bold text-xs md:text-sm">
             <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
-            ID.FORGE USER GUIDE <span className="hidden md:inline">// v4.1.0</span>
+            ID.FORGE USER GUIDE <span className="hidden md:inline">// v4.1.2</span>
           </div>
           <button onClick={onClose} className="text-zinc-500 hover:text-red-500 font-mono text-xs uppercase">[Close]</button>
         </div>
@@ -41,6 +41,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
             <div className="hidden md:block px-4 py-4 text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Library</div>
             <TabButton id="manual" label="CHOOSE YOUR STYLE" />
             <TabButton id="walkthrough" label="STEP-BY-STEP" />
+            <TabButton id="advanced" label="ADVANCED SETTINGS" />
             <TabButton id="faq" label="COMMON QUESTIONS" />
             <TabButton id="tips" label="PRO TIPS" />
             <TabButton id="contact" label="SUPPORT" />
@@ -83,37 +84,11 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
                     </p>
                   </div>
                 </div>
-                
-                <div className="border-t border-zinc-800 pt-6">
-                    <h3 className="text-lg font-bold text-white mb-4">Skin Detail Settings</h3>
-                    <p className="text-xs text-zinc-400 mb-4">
-                        You can control how realistic the skin looks in the generated photo.
-                    </p>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <li className="bg-black border border-zinc-800 p-3 rounded">
-                            <strong className="text-cyan-400 block mb-1">NATURAL</strong>
-                            <span className="text-[10px] text-zinc-500">Standard clean look. Balanced skin texture like a normal high-quality camera photo.</span>
-                        </li>
-                        <li className="bg-black border border-zinc-800 p-3 rounded">
-                            <strong className="text-cyan-400 block mb-1">ENHANCED</strong>
-                            <span className="text-[10px] text-zinc-500">Extreme realism. Renders pores, fine lines, and tiny hairs. Best for high-security scans.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                   <h3 className="text-lg md:text-xl font-bold text-white mb-4">Quality & Scanning</h3>
-                   <ul className="list-disc pl-5 space-y-2 text-xs text-zinc-400">
-                      <li><strong className="text-cyan-400">High Quality (600 DPI):</strong> Recommended for printing on high-end plastic ID cards.</li>
-                      <li><strong className="text-cyan-400">Forensic Check:</strong> The system automatically scans the generated images to see if they look "too fake" and can help you fix them.</li>
-                   </ul>
-                </div>
               </div>
             )}
 
             {activeTab === 'walkthrough' && (
                <div className="space-y-12 max-w-3xl">
-                 {/* Walkthrough 1 */}
                  <div className="border-l-2 border-cyan-600 pl-6">
                    <h3 className="text-lg md:text-xl font-bold text-white mb-2">Fixing an existing photo</h3>
                    <p className="text-xs text-zinc-500 mb-4">Use this to turn a selfie into a professional ID headshot.</p>
@@ -127,7 +102,6 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
                    </ol>
                  </div>
 
-                 {/* Walkthrough 2 */}
                  <div className="border-l-2 border-cyan-600 pl-6">
                    <h3 className="text-lg md:text-xl font-bold text-white mb-2">Taking a live photo</h3>
                    <p className="text-xs text-zinc-500 mb-4">Use your webcam or phone camera to get a perfect shot.</p>
@@ -139,7 +113,6 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
                    </ol>
                  </div>
 
-                 {/* Walkthrough 3 */}
                  <div className="border-l-2 border-purple-500 pl-6">
                    <h3 className="text-lg md:text-xl font-bold text-white mb-2">Creating a "Ghost" Identity</h3>
                    <p className="text-xs text-zinc-500 mb-4">Create a high-quality person that doesn't exist.</p>
@@ -151,6 +124,70 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose }) => {
                    </ol>
                  </div>
                </div>
+            )}
+
+            {activeTab === 'advanced' && (
+              <div className="space-y-10 max-w-4xl">
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold text-cyan-400 mb-4 tracking-tighter uppercase">Hardware & Output Config</h2>
+                  <p className="text-xs md:text-sm text-zinc-400 leading-relaxed mb-6">
+                    Fine-tune the fabrication module for specific hardware requirements. 
+                    These settings affect the final neural footprint and physical print viability.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Resolution Section */}
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-zinc-800 pb-2 uppercase">
+                      <span className="text-cyan-500">01 //</span> Image Resolution
+                    </h3>
+                    <div className="space-y-4">
+                      <div className="bg-zinc-900/50 p-3 rounded border border-zinc-800">
+                        <strong className="text-cyan-400 block text-xs mb-1">1K (Standard)</strong>
+                        <p className="text-[10px] text-zinc-500 italic">Fastest generation. Perfect for digital avatars or standard web-based identity verification.</p>
+                      </div>
+                      <div className="bg-zinc-900/50 p-3 rounded border border-zinc-800">
+                        <strong className="text-cyan-400 block text-xs mb-1">2K (Professional)</strong>
+                        <p className="text-[10px] text-zinc-500 italic">High fidelity. Recommended for standard PVC card printing (300 DPI) and full-screen biometric checks.</p>
+                      </div>
+                      <div className="bg-zinc-900/50 p-3 rounded border border-zinc-800">
+                        <strong className="text-cyan-400 block text-xs mb-1">4K (Forensic)</strong>
+                        <p className="text-[10px] text-zinc-500 italic">Maximum density. Sharpest detail for professional CR80 fabrication at 600-1200 DPI.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Texture Section */}
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-zinc-800 pb-2 uppercase">
+                      <span className="text-cyan-500">02 //</span> Skin Detail Protocol
+                    </h3>
+                    <div className="space-y-4">
+                      <div className="bg-zinc-900/50 p-3 rounded border border-zinc-800">
+                        <strong className="text-emerald-400 block text-xs mb-1">NATURAL</strong>
+                        <p className="text-[10px] text-zinc-500 italic">Standard professional photography. Sharp focus. Real skin texture with authentic minor imperfections.</p>
+                      </div>
+                      <div className="bg-zinc-900/50 p-3 rounded border border-zinc-800">
+                        <strong className="text-emerald-400 block text-xs mb-1">SMOOTHED</strong>
+                        <p className="text-[10px] text-zinc-500 italic">Retouched ID look. Skin is subtly evened out but retains pore structure to remain compliant.</p>
+                      </div>
+                      <div className="bg-zinc-900/50 p-3 rounded border border-zinc-800">
+                        <strong className="text-emerald-400 block text-xs mb-1">ENHANCED</strong>
+                        <p className="text-[10px] text-zinc-500 italic">Forensic Macro Realism. Renders deep pore maps, peach fuzz, and distinct irregularities to mimic a raw CMOS sensor.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-cyan-950/20 border border-cyan-900/50 p-4 rounded mt-8">
+                  <h4 className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest mb-2">Technical Warning</h4>
+                  <p className="text-[10px] text-zinc-400 leading-normal">
+                    Setting higher resolutions (4K) combined with 'Enhanced' detail increases processing time significantly. 
+                    This combination is strictly designed for physical card fabrication where micro-texture is required to pass forensic inspection.
+                  </p>
+                </div>
+              </div>
             )}
 
             {activeTab === 'faq' && (

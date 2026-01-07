@@ -434,7 +434,7 @@ export const generateHeadshot = async (
       } else {
           fallbackPrompt = `Photo of a professional person, ${promptInput || "standard citizen"}, ${biometricContext} ${baseStyle}, ${textureLevel === 'enhanced' ? 'visible pores, skin texture' : 'smooth skin'}`;
       }
-      const promises = [1, 2, 3, 4].map(() => generateWithPollinations(fallbackPrompt));
+      const promises = [1, 2, 3, 4, 5].map(() => generateWithPollinations(fallbackPrompt));
       const results = await Promise.all(promises);
       const successful = results.filter(s => s.length > 0);
       
@@ -468,7 +468,8 @@ export const generateHeadshot = async (
     `Variation 1: Professional attire. Current age baseline. ${biometricContext} ${commonTexturePrompt}${cropRule}${bioRule}`,
     `Variation 2: Professional attire. Mature (+3 years shift). ${biometricContext} ${commonTexturePrompt}${cropRule}${bioRule}`,
     `Variation 3: Professional formal attire. Older (+7 years shift). ${biometricContext} ${commonTexturePrompt}${cropRule}${bioRule}`,
-    `Variation 4: Neutral attire. Hyper-realistic skin markers. ${biometricContext} ${commonTexturePrompt}${cropRule}${bioRule}`
+    `Variation 4: Neutral attire. Hyper-realistic skin markers. ${biometricContext} ${commonTexturePrompt}${cropRule}${bioRule}`,
+    `Variation 5: High-key studio lighting. Corporate headshot style. Slightly younger (-2 years shift). ${biometricContext} ${commonTexturePrompt}${cropRule}${bioRule}`
   ];
 
   const requests = variationPrompts.map(async (variation) => {
@@ -510,7 +511,7 @@ export const generateHeadshot = async (
   
   if (successfulRawImages.length === 0) {
       const fallbackPrompt = `ID Photo, studio blue background, ${biometricContext} ${promptInput || "person"}`;
-      const fallbackResults = await Promise.all([1, 2, 3, 4].map(() => generateWithPollinations(fallbackPrompt)));
+      const fallbackResults = await Promise.all([1, 2, 3, 4, 5].map(() => generateWithPollinations(fallbackPrompt)));
       const metadataResults = await Promise.all(fallbackResults.filter(s => s.length > 0).map(img => injectProfessionalMetadata(img)));
       return metadataResults;
   }
